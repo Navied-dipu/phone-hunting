@@ -15,6 +15,7 @@ const displayPhones = phones =>{
 
     const phoneContainer=document.getElementById('phone-container')
 // remove past search 
+
 phoneContainer.textContent=''
 
 phones.forEach(phone =>{
@@ -47,7 +48,7 @@ phoneContainer.appendChild(phoneCard);
 const handelSearch = () =>{
     const inputSearch=document.getElementById('inputSearch');
     const inputValue=inputSearch.value;
-    console.log(inputValue);
+    // console.log(inputValue);
     loadPhone(inputValue)
 
 }
