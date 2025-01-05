@@ -3,27 +3,40 @@
 //     .then(res => res.json())
 //     .then(data => console.log(data))
 // }
-const loadPhone = async(searchText) =>{
-    const res= await fetch(` https://openapi.programming-hero.com/api/phones?search=${searchText}`);
-    const data= await res.json();
-    const phones= data.data
- displayPhones(phones);
+const loadPhone = async (searchText) => {
+  const res = await fetch(
+    ` https://openapi.programming-hero.com/api/phones?search=${searchText}`
+  );
+  const data = await res.json();
+  const phones = data.data;
+  displayPhones(phones);
+};
 
-}
+const displayPhones = (phones) => {
+  const phoneContainer = document.getElementById("phone-container");
+  // remove previous search
 
-const displayPhones = phones =>{
+  phoneContainer.textContent = "";
 
-    const phoneContainer=document.getElementById('phone-container')
-// remove past search 
+  // add show all button to show 12 more result
+  const showAllContainer = document.getElementById("show-container ");
+  if(phones.length > 12){
+    showAllContainer.classList.remove('hidden')
+  }
+  else{
+    showAllContainer.classList.add('hidden')
+  }
 
-phoneContainer.textContent=''
 
-phones.forEach(phone =>{
+  // phone slice
+  phones = phones.slice(0, 12);
+
+  phones.forEach((phone) => {
     console.log(phone);
-// create a div
-const phoneCard=document.createElement('div');
-phoneCard.classList=`card card-compact bg-base-100 p-4 shadow-xl`;
-phoneCard.innerHTML=`
+    // create a div
+    const phoneCard = document.createElement("div");
+    phoneCard.classList = `card card-compact bg-base-100 p-4 shadow-xl`;
+    phoneCard.innerHTML = `
  <figure>
 <img
 src="${phone.image}"
@@ -37,21 +50,17 @@ alt="Shoes" />
 </div>
 </div>
 </div>
-`
-phoneContainer.appendChild(phoneCard);
-
-})
-
-}
+`;
+    phoneContainer.appendChild(phoneCard);
+  });
+};
 
 // handelSearch
-const handelSearch = () =>{
-    const inputSearch=document.getElementById('inputSearch');
-    const inputValue=inputSearch.value;
-    // console.log(inputValue);
-    loadPhone(inputValue)
+const handelSearch = () => {
+  const inputSearch = document.getElementById("inputSearch");
+  const inputValue = inputSearch.value;
+  // console.log(inputValue);
+  loadPhone(inputValue);
+};
 
-}
-
-
-loadPhone()
+loadPhone();
